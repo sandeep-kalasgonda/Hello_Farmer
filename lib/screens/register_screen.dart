@@ -2,7 +2,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hello_farmer/services/auth_service.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class RegisterScreen extends StatefulWidget {
   final Function toggleView;
@@ -71,13 +70,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     _pageController.dispose();
     _headerController.dispose();
     super.dispose();
-  }
-
-  Future<void> _requestLocationPermission() async {
-    var status = await Permission.location.status;
-    if (!status.isGranted) {
-      await Permission.location.request();
-    }
   }
 
   @override
@@ -218,11 +210,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                                         dynamic result = await _auth
                                             .registerWithEmailAndPassword(
                                                 email, password, mobileNumber);
-                                                
-                                        if (mounted && result != null) {
-                                           await _requestLocationPermission();
-                                        } else if (mounted) {
-                                           setState(() {
+
+                                        if (result == null && mounted) {
+                                          setState(() {
                                             error = 'Please supply a valid email';
                                             loading = false;
                                           });

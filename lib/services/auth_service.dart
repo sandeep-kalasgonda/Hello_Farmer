@@ -23,7 +23,6 @@ class AuthService {
       User? user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -36,12 +35,13 @@ class AuthService {
           email: email, password: password);
       User? user = result.user;
 
-      // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData(mobileNumber);
+      if (user != null) {
+        // create a new document for the user with the uid
+        await DatabaseService(uid: user.uid).updateUserData(mobileNumber);
+      }
 
       return _userFromFirebaseUser(user);
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -51,8 +51,7 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
-      return null;
+      return;
     }
   }
 }

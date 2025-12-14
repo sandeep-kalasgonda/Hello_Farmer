@@ -8,8 +8,20 @@ class DatabaseService {
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
 
   Future<void> updateUserData(String mobileNumber) async {
-    return await userCollection.doc(uid).set({
-      'mobileNumber': mobileNumber,
-    });
+    if (uid == null) {
+      return;
+    }
+    try {
+      await userCollection.doc(uid).set({
+        'mobileNumber': mobileNumber,
+      });
+    } catch (e) {
+      return;
+    }
+  }
+
+  // Get user document stream
+  Stream<DocumentSnapshot> get userData {
+    return userCollection.doc(uid).snapshots();
   }
 }

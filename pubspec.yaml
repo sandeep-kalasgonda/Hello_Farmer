@@ -12,11 +12,18 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.16.0
+  # Updated Firebase versions for compatibility
+  firebase_core: ^2.32.0 
+  firebase_auth: ^4.20.0
+  cloud_firestore: ^4.17.5
+  
   provider: ^6.1.1
   permission_handler: ^11.0.1
-  cloud_firestore: ^4.9.1
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.1.0
+  maps_toolkit: ^3.0.0
+  geocoding: ^2.1.0
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -2,7 +2,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hello_farmer/services/auth_service.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function toggleView;
@@ -70,14 +69,6 @@ class _LoginScreenState extends State<LoginScreen>
     _pageController.dispose();
     _headerController.dispose();
     super.dispose();
-  }
-
-  // Request location permission
-  Future<void> _requestLocationPermission() async {
-    var status = await Permission.location.status;
-    if (!status.isGranted) {
-      await Permission.location.request();
-    }
   }
 
   @override
@@ -193,9 +184,6 @@ class _LoginScreenState extends State<LoginScreen>
                                                 'Invalid email or password';
                                             loading = false;
                                           });
-                                        } else {
-                                          // Request permission on success
-                                          await _requestLocationPermission();
                                         }
                                       }
                                     },
