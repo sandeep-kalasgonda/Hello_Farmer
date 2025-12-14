@@ -1,6 +1,7 @@
+
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:hello_farmer/screens/home_screen.dart';
+import 'package:hello_farmer/wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,31 +18,25 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // Animation controller
     _controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
 
-    // Logo scale animation
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
     );
 
-    // Fade-in animation
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeIn),
     );
 
     _controller.forward();
 
-    // Navigation after delay
-    Timer(Duration(seconds: 10), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MyHomePage(title: 'Hello Farmer'),
-        ),
+    // Correct navigation to Wrapper
+    Timer(const Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => const Wrapper()),
       );
     });
   }
@@ -57,12 +52,9 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF4CAF50),
-              Color(0xFF2E7D32),
-            ],
+            colors: [Color(0xFF4CAF50), Color(0xFF2E7D32)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -73,11 +65,9 @@ class _SplashScreenState extends State<SplashScreen>
             scale: _scaleAnimation,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 FlutterLogo(size: 120),
-
                 SizedBox(height: 25),
-
                 Text(
                   "Hello Farmer",
                   style: TextStyle(
@@ -87,9 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
                     letterSpacing: 1.5,
                   ),
                 ),
-
                 SizedBox(height: 10),
-
                 Text(
                   "Connecting Farmers with Solutions",
                   style: TextStyle(
@@ -97,9 +85,7 @@ class _SplashScreenState extends State<SplashScreen>
                     color: Colors.white70,
                   ),
                 ),
-
                 SizedBox(height: 30),
-
                 CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),

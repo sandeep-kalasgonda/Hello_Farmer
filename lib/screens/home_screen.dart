@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_farmer/services/auth_service.dart';
 import 'package:hello_farmer/widgets/location_selection_card.dart';
 import 'package:hello_farmer/widgets/nearby_card.dart';
 import 'package:hello_farmer/widgets/service_card.dart';
@@ -13,6 +14,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +28,14 @@ class _MyHomePageState extends State<MyHomePage> {
           widget.title,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () async {
+              await _auth.signOut();
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
